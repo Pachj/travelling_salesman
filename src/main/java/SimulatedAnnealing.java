@@ -4,9 +4,9 @@ public class SimulatedAnnealing {
 
     // startingTemperature (10?)
     // irgendeinen Wert (10000?)
-    // coolingRate --> wie genau, auf 0.999 setzen
-    public static double simulateAnnealing(int numberOfIterations, double coolingRate) {
-        System.out.println("Starting SA with temperature: " + startingTemperature + ", # of iterations: " + numberOfIterations + " and colling rate: " + coolingRate);
+    // coolingRate --> accuracy --> wie genau, auf 0.999 setzen
+    public static double simulateAnnealing(int numberOfIterations, double accuracy) {
+        System.out.println("Starting SA with temperature: " + startingTemperature + ", # of iterations: " + numberOfIterations + " and colling rate: " + accuracy);
         double t = 10;
         travel.generateInitialTravel();
         double bestDistance = travel.getDistance();
@@ -23,7 +23,7 @@ public class SimulatedAnnealing {
                 } else if (Math.exp((bestDistance - currentDistance) / t) < Math.random()) {
                     currentSolution.revertSwap();
                 }
-                t *= coolingRate;
+                t *= accuracy;
             } else {
                 continue;
             }
