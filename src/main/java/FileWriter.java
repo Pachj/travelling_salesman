@@ -1,12 +1,15 @@
+import model.City;
+
 import java.io.IOException;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class FileWriter {
 
-    public void writeFile(String path, List<String> values, String header) throws IOException {
-        values.add(0, header);
+    public static void writeFile(String path, List<City> values) throws IOException {
         java.io.FileWriter writer = new java.io.FileWriter(path);
-        writer.write(String.join("", values));
+        List<String> valuesAsString = values.stream().map(City::toString).collect(Collectors.toList());
+        writer.write(String.join("", valuesAsString));
         writer.close();
     }
 

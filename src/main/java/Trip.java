@@ -50,8 +50,8 @@ public class Trip {
     }
 
     private double calculateDistanceBetweenDestination(City startDestination, City targetDestination) {
-        double xCoordinate = Math.abs(startDestination.getX() - targetDestination.getX());
-        double yCoordinate = Math.abs(startDestination.getY() - targetDestination.getY());
+        double xCoordinate = Math.abs(startDestination.getXCoordinate() - targetDestination.getXCoordinate());
+        double yCoordinate = Math.abs(startDestination.getYCoordinate() - targetDestination.getYCoordinate());
         return Math.sqrt(Math.pow(xCoordinate, 2) + Math.pow(yCoordinate, 2));
     }
 

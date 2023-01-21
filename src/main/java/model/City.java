@@ -3,30 +3,30 @@ package model;
 import static java.lang.Double.parseDouble;
 
 public class City {
-    private double x;
-    private double y;
+    private double xCoordinate;
+    private double yCoordinate;
     private String name;
 
-    public City(double x, double y, String name) {
-        this.x = x;
-        this.y = y;
+    public City(double xCoordinate, double yCoordinate, String name) {
+        this.xCoordinate = xCoordinate;
+        this.yCoordinate = yCoordinate;
         this.name = name;
     }
 
-    public int getX() {
-        return (int) x;
+    public int getXCoordinate() {
+        return (int) xCoordinate;
     }
 
-    public void setX(int x) {
-        this.x = x;
+    public void setXCoordinate(int xCoordinate) {
+        this.xCoordinate = xCoordinate;
     }
 
-    public double getY() {
-        return y;
+    public double getYCoordinate() {
+        return yCoordinate;
     }
 
-    public void setY(int y) {
-        this.y = y;
+    public void setYCoordinate(int yCoordinate) {
+        this.yCoordinate = yCoordinate;
     }
 
     public String getName() {
@@ -43,10 +43,8 @@ public class City {
 
     @Override
     public String toString() {
-        return "City{" +
-                "x=" + x +
-                ", y=" + y +
-                ", name='" + name + '\'' +
-                '}';
+        return """
+                City: %s, Coordinates: %f, %f
+                """.formatted(name, xCoordinate, yCoordinate);
     }
 }

@@ -2,6 +2,7 @@ import model.City;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class MainApp {
@@ -9,18 +10,16 @@ public class MainApp {
     public static void main(String[] args) throws IOException {
 
         // Read File
-        List<String[]> lines = FileReader.readFile("Koordinatenliste.txt", ",");
+        List<String[]> lines = FileReader.readFile("koordinatenliste.txt", ",");
 
+        // Map to objects
         ArrayList<City> cities = new ArrayList<>();
         lines.forEach(values -> cities.add(City.mapToCity(values)));
-
         Trip trip = new Trip(cities);
 
-        trip.getTrip().forEach(value -> System.out.println(value.toString()));
-
+        // Start calculation
         double bestRoute = SimulatedAnnealing.calculateBestRoute(trip);
-        System.out.println("bestRoute = " + bestRoute);
-        trip.getTrip().forEach(value -> System.out.println(value.toString()));
+        FileWriter.writeFile("bestSolution.txt", trip.getTrip().stream().toList() );
     }
 
 }
