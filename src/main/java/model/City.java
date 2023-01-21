@@ -1,25 +1,27 @@
 package model;
 
+import static java.lang.Double.parseDouble;
+
 public class City {
-    private int x;
-    private int y;
+    private double x;
+    private double y;
     private String name;
 
-    public City(int x, int y, String name) {
+    public City(double x, double y, String name) {
         this.x = x;
         this.y = y;
         this.name = name;
     }
 
     public int getX() {
-        return x;
+        return (int) x;
     }
 
     public void setX(int x) {
         this.x = x;
     }
 
-    public int getY() {
+    public double getY() {
         return y;
     }
 
@@ -33,5 +35,18 @@ public class City {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public static City mapToCity(String[] values) {
+        return new City(parseDouble(values[1]), parseDouble(values[2]), values[0]);
+    }
+
+    @Override
+    public String toString() {
+        return "City{" +
+                "x=" + x +
+                ", y=" + y +
+                ", name='" + name + '\'' +
+                '}';
     }
 }

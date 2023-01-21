@@ -4,29 +4,31 @@ import java.util.ArrayList;
 
 public class Trip {
 
-    private ArrayList<City> destinations;
+    private ArrayList<City> trip;
+    private ArrayList<City> previousTrip;
 
     Trip(ArrayList<City> cities) {
-        destinations = cities;
+        trip = cities;
+        previousTrip = new ArrayList<>();
     }
 
-    public ArrayList<City> getDestinations() {
-        return destinations;
+    public ArrayList<City> getTrip() {
+        return trip;
     }
 
     public void addDestinationToList(City additionalCity) {
-        this.destinations.add(additionalCity);
+        this.trip.add(additionalCity);
     }
 
     public int getDistance() {
         int distance = 0;
-        for (int i = 0; i < destinations.size(); i++) {
-            City startDestination = destinations.get(i);
+        for (int i = 0; i < trip.size(); i++) {
+            City startDestination = trip.get(i);
             City nextDestination;
-            if (i + 1 < destinations.size()) {
-                nextDestination = destinations.get(i + 1);
+            if (i + 1 < trip.size()) {
+                nextDestination = trip.get(i + 1);
             } else {
-                nextDestination = destinations.get(0);
+                nextDestination = trip.get(0);
             }
             distance += calculateDistanceBetweenDestination(startDestination, nextDestination);
         }
@@ -34,19 +36,27 @@ public class Trip {
     }
 
     public void swapCities() {
-        int a = generateRandomIndex();
-        int b = generateRandomIndex();
-        previousTravel = new ArrayList<>(travel);
-        City x = travel.get(a);
-        City y = travel.get(b);
-        travel.set(a, y);
-        travel.set(b, x);
+        int firstRandomIndex = generateRandomIndex();
+        int secondRandomIndex = generateRandomIndex();
+        previousTrip = new ArrayList<>(trip);
+        City x = trip.get(firstRandomIndex);
+        City y = trip.get(secondRandomIndex);
+        trip.set(firstRandomIndex, y);
+        trip.set(secondRandomIndex, x);
+    }
+
+    public void revertSwap() {
+        trip = previousTrip;
     }
 
     private double calculateDistanceBetweenDestination(City startDestination, City targetDestination) {
-        int xCoordinate = Math.abs(startDestination.getX() - targetDestination.getX());
-        int yCoordinate = Math.abs(startDestination.getY() - targetDestination.getY());
+        double xCoordinate = Math.abs(startDestination.getX() - targetDestination.getX());
+        double yCoordinate = Math.abs(startDestination.getY() - targetDestination.getY());
         return Math.sqrt(Math.pow(xCoordinate, 2) + Math.pow(yCoordinate, 2));
+    }
+
+    private int generateRandomIndex() {
+        return (int) (Math.random() * trip.size());
     }
 
 }
