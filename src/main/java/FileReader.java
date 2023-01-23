@@ -10,6 +10,7 @@ public class FileReader {
     public static List<String[]> readFile(String path, String separator) throws IOException {
         List<String[]> fileAsList = new ArrayList<>();
         String fileAsString = new Scanner(new File(path)).useDelimiter("\\Z").next();
+
         Arrays.stream(fileAsString.split("\n")).forEach(line -> {
             String[] values = line.trim().split(separator);
             fileAsList.add(values);
@@ -17,5 +18,4 @@ public class FileReader {
 
         return fileAsList;
     }
-
 }

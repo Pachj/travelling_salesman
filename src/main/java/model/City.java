@@ -3,6 +3,7 @@ package model;
 import static java.lang.Double.parseDouble;
 
 public class City {
+
     private double xCoordinate;
     private double yCoordinate;
     private String name;
@@ -44,7 +45,7 @@ public class City {
     @Override
     public String toString() {
         return """
-                City: %s, Coordinates: %f, %f
+                %s: Coordinates: %f, %f
                 """.formatted(name, xCoordinate, yCoordinate);
     }
 }

@@ -1,9 +1,11 @@
 import model.City;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class Trip {
 
+    private final Random random = new Random();
     private ArrayList<City> trip;
     private ArrayList<City> previousTrip;
 
@@ -16,11 +18,7 @@ public class Trip {
         return trip;
     }
 
-    public void addDestinationToList(City additionalCity) {
-        this.trip.add(additionalCity);
-    }
-
-    public double getDistance() {
+    public double calculateDistance() {
         double distance = 0.0;
         for (int i = 0; i < trip.size(); i++) {
             City startDestination = trip.get(i);
@@ -50,6 +48,19 @@ public class Trip {
     }
 
     @Override
+    public String toString() {
+        String tripAsString = "";
+        for (int i = 0; i < trip.size(); i++) {
+            if (i == trip.size() - 1) {
+                tripAsString = String.format("%s%s%n%n", tripAsString, trip.get(i).getName());
+            } else {
+                tripAsString = String.format("%s%s -> ", tripAsString, trip.get(i).getName());
+            }
+        }
+        return tripAsString;
+    }
+
+    @Override
     public Trip clone() {
         return new Trip(new ArrayList<>(this.trip));
     }
@@ -61,7 +72,6 @@ public class Trip {
     }
 
     private int generateRandomIndex() {
-        return (int) (Math.random() * trip.size());
+        return random.nextInt(1, trip.size());
     }
-
 }

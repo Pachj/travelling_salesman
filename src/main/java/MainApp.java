@@ -2,7 +2,6 @@ import model.City;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class MainApp {
@@ -18,8 +17,10 @@ public class MainApp {
         Trip trip = new Trip(cities);
 
         // Start calculation
-        SimulatedAnnealing.calculateBestRoute(trip);
-        FileWriter.writeFile("bestSolution.txt", trip.getTrip().stream().toList() );
+        List<Trip> bestSolutions = SimulatedAnnealing.calculateBestRoute(trip);
+
+        // Write output into file
+        FileWriter.writeFile("bestSolutions.txt", bestSolutions);
     }
 
 }

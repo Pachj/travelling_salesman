@@ -9,12 +9,11 @@ public class SimulatedAnnealing {
     private static final double ACCURACY = 0.9999;
     private static final int NUMBER_OF_ITERATIONS = 10000;
 
-    private static Set<Trip> solutions = new HashSet<>();
+    private static final Set<Trip> solutions = new HashSet<>();
 
     public static List<Trip> calculateBestRoute(Trip trip) {
         System.out.printf("--------- Start calculation of best route ---------%n%n");
-
-        double bestDistance = trip.getDistance();
+        double bestDistance = trip.calculateDistance();
         System.out.printf("Initial distance of trip: %.2f%n", bestDistance);
         trip.getTrip().forEach(value -> System.out.print(value.toString()));
 
@@ -25,10 +24,9 @@ public class SimulatedAnnealing {
         for (int i = 0; i < NUMBER_OF_ITERATIONS; i++) {
             if (t > 0.1) {
                 currentSolution.swapCities();
-                double currentDistance = currentSolution.getDistance();
-
-                solutions.add(currentSolution.clone());
+                double currentDistance = currentSolution.calculateDistance();
                 if (currentDistance < bestDistance) {
+                    solutions.add(currentSolution.clone());
                     bestDistance = currentDistance;
                 } else if (Math.exp((bestDistance - currentDistance) / t) < Math.random()) {
                     currentSolution.revertSwap();
@@ -37,18 +35,17 @@ public class SimulatedAnnealing {
             }
         }
         List<Trip> threeBestSolutions = solutions.stream()
-                .sorted(Comparator.comparing(Trip::getDistance))
+                .sorted(Comparator.comparing(Trip::calculateDistance))
                 .limit(3)
                 .collect(Collectors.toList());
 
         System.out.printf("%nThese are the best three routes%n");
         for (int i = 0; i < 3; i++) {
-            System.out.printf("%nSolution %d%n%nDistance -> %.2f%n", i + 1, threeBestSolutions.get(i).getDistance());
+            System.out.printf("%nSolution %d%n%nDistance -> %.2f%n", i + 1, threeBestSolutions.get(i).calculateDistance());
             threeBestSolutions.get(i).getTrip().forEach(city -> System.out.print(city.toString()));
         }
         System.out.printf("%n--------- Calculation finished ---------%n%n");
         return threeBestSolutions;
-
     }
 
 }
