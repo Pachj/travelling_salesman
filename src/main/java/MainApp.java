@@ -18,7 +18,7 @@ public class MainApp {
         Trip trip = new Trip(cities);
 
         // Start calculation
-        double bestRoute = SimulatedAnnealing.calculateBestRoute(trip);
+        SimulatedAnnealing.calculateBestRoute(trip);
         FileWriter.writeFile("bestSolution.txt", trip.getTrip().stream().toList() );
     }
 

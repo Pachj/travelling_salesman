@@ -20,8 +20,8 @@ public class Trip {
         this.trip.add(additionalCity);
     }
 
-    public int getDistance() {
-        int distance = 0;
+    public double getDistance() {
+        double distance = 0.0;
         for (int i = 0; i < trip.size(); i++) {
             City startDestination = trip.get(i);
             City nextDestination;
@@ -47,6 +47,11 @@ public class Trip {
 
     public void revertSwap() {
         trip = previousTrip;
+    }
+
+    @Override
+    public Trip clone() {
+        return new Trip(new ArrayList<>(this.trip));
     }
 
     private double calculateDistanceBetweenDestination(City startDestination, City targetDestination) {
